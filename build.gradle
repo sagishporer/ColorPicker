@@ -1,31 +1,6 @@
-buildscript {
-
-    // @formatter:off
-  ext.buildConfig = [
-      compileSdk   : 34,
-      targetSdk    : 34,
-      minSdk       : 14,
-      gradlePlugin : '8.13.2'
-  ]
-  ext.versions = [
-      androidx      : '1.1.0',
-      preferences   : '1.1.1'
-  ]
-  ext.deps = [
-    'androidx' : [
-      'appCompat'   : "androidx.appcompat:appcompat:${versions.androidx}",
-      'preferences' : "androidx.preference:preference:${versions.preferences}"
-    ]
-  ]
-  // @formatter:on
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:${buildConfig.gradlePlugin}"
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
 }
 
 allprojects {

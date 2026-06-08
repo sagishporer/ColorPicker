@@ -1,15 +1,15 @@
 plugins {
-    id 'com.android.library'
+    alias(libs.plugins.android.library)
     id 'maven-publish'
 }
 
 android {
     namespace 'com.jaredrummler.android.colorpicker'
-    compileSdkVersion buildConfig.compileSdk
+    compileSdk libs.versions.compileSdk.get().toInteger()
     resourcePrefix "cpv_"
     defaultConfig {
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
     }
     lint {
         abortOnError false
@@ -17,9 +17,9 @@ android {
 }
 
 dependencies {
-    implementation "${deps.androidx.appCompat}"
-    implementation "${deps.androidx.preferences}"
-    testImplementation 'junit:junit:4.13.2'
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.preference
+    testImplementation libs.junit
 }
 
 afterEvaluate {

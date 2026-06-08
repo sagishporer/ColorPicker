@@ -1,14 +1,14 @@
 plugins {
-    id 'com.android.application'
+    alias(libs.plugins.android.application)
 }
 
 android {
     namespace 'com.jaredrummler.android.colorpicker.demo'
-    compileSdkVersion buildConfig.compileSdk
+    compileSdk libs.versions.compileSdk.get().toInteger()
     defaultConfig {
         applicationId "com.jaredrummler.android.colorpicker.demo"
-        minSdkVersion buildConfig.minSdk
-        targetSdkVersion buildConfig.targetSdk
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
     }
@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation "${deps.androidx.appCompat}"
-    implementation "${deps.androidx.preferences}"
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.preference
     implementation project(':library')
 }
