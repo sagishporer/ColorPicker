@@ -378,7 +378,12 @@ public class ColorPickerDialog extends DialogFragment implements ColorPickerView
     @Override
     public void afterTextChanged(Editable s) {
         if (hexEditText.isFocused()) {
-            int color = parseColorString(s.toString());
+            String colorString = s.toString();
+            // Some input methods can bypass android:digits while composing text.
+            if (!isValidColorString(colorString)) {
+                return;
+            }
+            int color = parseColorString(colorString);
             if (color != colorPicker.getColor()) {
                 fromEditText = true;
                 colorPicker.setColor(color, true);
@@ -392,6 +397,23 @@ public class ColorPickerDialog extends DialogFragment implements ColorPickerView
         } else {
             hexEditText.setText(String.format("%06X", (0xFFFFFF & color)));
         }
+    }
+
+    static boolean isValidColorString(String colorString) {
+        int start = colorString.startsWith("#") ? 1 : 0;
+        if (colorString.length() - start > 8) {
+            return false;
+        }
+        for (int i = start; i < colorString.length(); i++) {
+            char character = colorString.charAt(i);
+            boolean isHexDigit = character >= '0' && character <= '9'
+                    || character >= 'A' && character <= 'F'
+                    || character >= 'a' && character <= 'f';
+            if (!isHexDigit) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private int parseColorString(String colorString) throws NumberFormatException {
